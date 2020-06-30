@@ -43,7 +43,7 @@ in mkYarnPackage {
   '';
 
   installPhase = ''
-    export PATH="$PATH:$node_modules/.bin"
+    export PATH="$PATH:$packages/server/node_modules/.bin"
 
     yarn workspaces run build
 
