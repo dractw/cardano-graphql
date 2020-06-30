@@ -44,6 +44,8 @@ let
         * persistgraphql <src> whitelist.json - generates a whitelist.json to limit graphql queries
         * export GOPATH="\$\(pwd\)/.go" - enable vgo2nix to use the pwd as it's source
         * node2nix -l - update node packages, -l if there's a lock file
+        * yarn - install all the dependencies
+        * yarn workspaces run build - to build the project natively
 
       "
     '';
