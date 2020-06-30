@@ -11,6 +11,7 @@ let
   shell = pkgs.mkShell {
     name = "cardano-graphql-dev-shell";
 
+    # TODO: add tsc to the path in both shells
     # These programs will be available inside the nix-shell.
     buildInputs = [
       git                    # Distributed version control system
@@ -18,6 +19,7 @@ let
       packages.niv           # Dependency management for Nix projects
       nix                    # Purely Functional Package Manager
       nodePackages.node2nix  # Generates a set of Nix expressions from a NPM package's package.json
+      nodePackages.typescript   # Provides the TypeScripts compiler, tsc
       packages.nodejs        # Event-driven I/O framework for the V8 JavaScript engine
       pkgconfig              # Allows packages to find out information about other packages
       pkgs.packages.cardano-graphql
@@ -52,6 +54,7 @@ let
     buildInputs = [
       niv                    # Dependency management for Nix projects
       nodePackages.node2nix  # Generates a set of Nix expressions from a NPM package's package.json
+      nodePackages.typescript   # Provides the TypeScripts compiler, tsc
       packages.vgo2nix       # Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files
       packages.yarn2nix      # Generate nix expressions from a yarn.lock file
       yarn                   # Dependency management for javascript
