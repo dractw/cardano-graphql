@@ -45,7 +45,7 @@ in mkYarnPackage {
   installPhase = ''
     export PATH="$PATH:$node_modules/.bin"
 
-    yarn run build
+    yarn workspaces run build
 
     pwd
 
