@@ -38,17 +38,20 @@ in mkYarnWorkspace {
     src = cardano-graphql-src;
   };
   yarnPreBuild = ''
+    echo "***** yarnPreBuild *****"
     mkdir -p $HOME/.node-gyp/${nodejs.version}
     echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
     ln -sfv ${nodejs}/include $HOME/.node-gyp/${nodejs.version}
   '';
 
   installPhase = ''
+    echo "***** installPhase *****"
     export PATH="$PATH:$node_modules/.bin"
     yarn build
   '';
 
   yarnPostBuild = ''
+    echo "***** yarnPostBuild *****"
     #cp -r deps/cardano-graphql/packages/server/dist $out
 
     mkdir -p $out/bin
