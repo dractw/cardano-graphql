@@ -1,16 +1,17 @@
-{ mkYarnPackage
-, lib
+{ lib
 , cardano-graphql-src
 , runtimeShell
 , nodejs
 , python
+, pkgs ? import ./pkgs.nix
 }:
 
 let
   packageJSON = cardano-graphql-src + "/package.json";
   version = (__fromJSON (__readFile packageJSON)).version;
+  mkYarnWorkspace = pkgs.yarn2nix-moretea.mkYarnWorkspace;
 
-in mkYarnPackage {
+in mkYarnWorkspace {
   pname = "cardano-graphql";
   inherit packageJSON version;
   yarnLock = cardano-graphql-src + "/yarn.lock";
@@ -40,18 +41,16 @@ in mkYarnPackage {
     mkdir -p $HOME/.node-gyp/${nodejs.version}
     echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
     ln -sfv ${nodejs}/include $HOME/.node-gyp/${nodejs.version}
+    #cp -rp ${cardano-graphql-src}/node_modules/.bin ./node_modules/
   '';
 
   installPhase = ''
-    export PATH="$PATH:$packages/server/node_modules/.bin"
+    export PATH="$PATH:$node_modules/.bin"
+    yarn build
+  '';
 
-    yarn workspaces run build
-
-    pwd
-
-    ls -hal
-
-    cp -r deps/cardano-graphql/packages/server/dist $out
+  yarnPostBuild = ''
+    #cp -r deps/cardano-graphql/packages/server/dist $out
 
     mkdir -p $out/bin
     cat <<EOF > $out/bin/cardano-graphql
@@ -59,9 +58,6 @@ in mkYarnPackage {
     exec ${nodejs}/bin/node $out/index.js
     EOF
     chmod +x $out/bin/cardano-graphql
-  '';
-
-  distPhase = ''
     cp -r . $out
   '';
 }

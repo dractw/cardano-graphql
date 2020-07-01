@@ -29,7 +29,7 @@ let
       tmux                   # Terminal multiplexer
       yarn                   # Dependency management for javascript
       packages.vgo2nix       # Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files
-      packages.yarn2nix      # Generate nix expressions from a yarn.lock file
+      #packages.yarn2nix      # Generate nix expressions from a yarn.lock file
     ];
 
     shellHook = ''
@@ -58,7 +58,7 @@ let
       nodePackages.node2nix  # Generates a set of Nix expressions from a NPM package's package.json
       nodePackages.typescript   # Provides the TypeScripts compiler, tsc
       packages.vgo2nix       # Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files
-      packages.yarn2nix      # Generate nix expressions from a yarn.lock file
+      #packages.yarn2nix      # Generate nix expressions from a yarn.lock file
       yarn                   # Dependency management for javascript
     ];
     shellHook = ''
