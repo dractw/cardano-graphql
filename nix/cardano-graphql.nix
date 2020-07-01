@@ -11,10 +11,6 @@ let
   version = (__fromJSON (__readFile packageJSON)).version;
   mkYarnWorkspace = pkgs.yarn2nix-moretea.mkYarnWorkspace;
 
-in mkYarnWorkspace {
-  pname = "cardano-graphql";
-  inherit packageJSON version;
-  yarnLock = cardano-graphql-src + "/yarn.lock";
   src = lib.cleanSourceWith {
     filter = name: type: let
       baseName = baseNameOf (toString name);
@@ -37,30 +33,40 @@ in mkYarnWorkspace {
     );
     src = cardano-graphql-src;
   };
-  yarnPreBuild = ''
-    echo "***** yarnPreBuild *****"
-    mkdir -p $HOME/.node-gyp/${nodejs.version}
-    echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
-    ln -sfv ${nodejs}/include $HOME/.node-gyp/${nodejs.version}
-    #cp -rp ${cardano-graphql-src}/node_modules/.bin ./node_modules/
+in mkYarnWorkspace {
+  pname = "cardano-graphql";
+  inherit packageJSON version;
+  yarnLock = cardano-graphql-src + "/yarn.lock";
+
+  src = pkgs.runCommand "cardano-graphql-src-cleaner" { buildInputs = [
+    pkgs.fd pkgs.jq pkgs.bash pkgs.coreutils
+   ]; } ''
+    cp -r ${src} src
+    chmod u+w -R src
+    fd tsconfig.json src/packages/ -x bash -c 'jq ".extends = \"${../tsconfig.json}\"" < {} > {//}/tstmp && mv {//}/tstmp {}'
+    cp -r src $out
   '';
 
-  installPhase = ''
-    echo "***** installPhase *****"
-    export PATH="$PATH:$node_modules/.bin"
-    yarn build
-  '';
+  packageOverrides = {
+    "cardano-graphql-server" = {
+      buildPhase = ''
+        cp -r $src/src src
+        yarn --offline run build
+      '';
+    };
 
-  yarnPostBuild = ''
-    echo "***** yarnPostBuild *****"
-    #cp -r deps/cardano-graphql/packages/server/dist $out
+    "cardano-graphql-api-cardano-db-hasura" = {
+      buildPhase = ''
+        cp -r $src/src src
+        yarn --offline run build
+      '';
+    };
 
-    mkdir -p $out/bin
-    cat <<EOF > $out/bin/cardano-graphql
-    #!${runtimeShell}
-    exec ${nodejs}/bin/node $out/index.js
-    EOF
-    chmod +x $out/bin/cardano-graphql
-    cp -r . $out
-  '';
+    "cardano-graphql-util" = {
+      buildPhase = ''
+        cp -r $src/src src
+        yarn --offline run build
+      '';
+    };
+  };
 }

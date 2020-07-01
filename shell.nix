@@ -22,7 +22,7 @@ let
       nodePackages.typescript   # Provides the TypeScripts compiler, tsc
       packages.nodejs        # Event-driven I/O framework for the V8 JavaScript engine
       pkgconfig              # Allows packages to find out information about other packages
-      pkgs.packages.cardano-graphql
+      # pkgs.packages.cardano-graphql.cardano-graphql-server
       pkgs.packages.persistgraphql
       pkgs.packages.hasura-cli
       python                 # The Python Programming language
