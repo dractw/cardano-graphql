@@ -41,7 +41,6 @@ in mkYarnWorkspace {
     mkdir -p $HOME/.node-gyp/${nodejs.version}
     echo 9 > $HOME/.node-gyp/${nodejs.version}/installVersion
     ln -sfv ${nodejs}/include $HOME/.node-gyp/${nodejs.version}
-    #cp -rp ${cardano-graphql-src}/node_modules/.bin ./node_modules/
   '';
 
   installPhase = ''
