@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -b ./src",
+    "build": "echo \"BUILDING util-dev\" && tsc -b ./src",
     "cleanup": "shx rm -rf dist node_modules",
     "lint": "eslint --ignore-path ../../.eslintignore \"**/*.ts\"",
     "test": "shx echo No tests in this package"
@@ -23,7 +23,9 @@
   "dependencies": {
     "graphql": "14.5.8",
     "graphql-tag": "^2.10.3",
-    "p-retry": "^4.2.0"
+    "p-retry": "^4.2.0",
+    "typescript": "^3.9.5",
+    "@cardano-graphql/util": "1.0.0-rc.12"
   },
   "directories": {
     "lib": "src",

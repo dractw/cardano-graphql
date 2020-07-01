@@ -9,7 +9,7 @@
   "main": "api/index.js",
   "typings": "api/index.d.ts",
   "scripts": {
-    "build": "graphql-codegen && tsc",
+    "build": "echo \"BUILDING client-ts\" && graphql-codegen && tsc",
     "cleanup": "shx rm -rf api/index.d.ts \"api/cardano-db-hasura/graphql_types*\"",
     "lint": "eslint --ignore-path ../../.eslintignore \"**/*.ts\"",
     "prepack": "yarn build && shx cp ../api-cardano-db-hasura/schema.graphql ./api/cardano-db-hasura/",
@@ -36,5 +36,10 @@
   ],
   "directories": {
     "lib": "src"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.15.2",
+    "@graphql-codegen/typescript": "^1.15.2",
+    "typescript": "^3.9.5"
   }
 }

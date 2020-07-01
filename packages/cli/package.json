@@ -13,7 +13,7 @@
   "scripts": {
     "add-global": "yarn build && yarn global add file:$PWD",
     "remove-global": "yarn global remove @cardano-graphql/cli",
-    "build": "tsc -b ./src && shx cp src/Docker/docker-compose.yml dist/Docker/",
+    "build": "echo \"BUILDING cli\" && tsc -b ./src && shx cp src/Docker/docker-compose.yml dist/Docker/",
     "cleanup": "shx rm -rf dist node_modules",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly  src/index.ts",
     "lint": "eslint --ignore-path ../../.eslintignore \"**/*.ts\"",
@@ -57,7 +57,9 @@
     "lodash.set": "^4.3.2",
     "password-generator": "^2.2.3",
     "ts-log": "^2.1.4",
-    "write-json-file": "^4.3.0"
+    "write-json-file": "^4.3.0",
+    "typescript": "^3.9.5",
+    "@cardano-graphql/util": "1.0.0-rc.12"
   },
   "directories": {
     "lib": "src",
