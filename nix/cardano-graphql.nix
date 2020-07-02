@@ -35,7 +35,7 @@ let
   };
 in mkYarnWorkspace {
   pname = "cardano-graphql";
-  inherit packageJSON version;
+  inherit packageJSON;
   yarnLock = cardano-graphql-src + "/yarn.lock";
 
   src = pkgs.runCommand "cardano-graphql-src-cleaner" { buildInputs = [
