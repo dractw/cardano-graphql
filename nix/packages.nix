@@ -7,7 +7,6 @@ let
     sources = import ./sources.nix;
     cardano-graphql-src = src;
     nodejs = pkgs.nodejs-12_x;
-    inherit (self.callPackage self.sources.yarn2nix {}) yarn2nix mkYarnModules;
     inherit (import self.sources.niv {}) niv;
     cardano-graphql = self.callPackage ./cardano-graphql.nix {};
     hasura-cli-ext = self.callPackage ./hasura-cli-ext/impure.nix {};

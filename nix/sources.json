@@ -59,17 +59,5 @@
         "type": "tarball",
         "url": "https://github.com/nix-community/vgo2nix/archive/9286b289764831bd40c2a82fe311caef019056f4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "yarn2nix": {
-        "branch": "master",
-        "description": "Generate nix expressions from a yarn.lock file",
-        "homepage": null,
-        "owner": "nix-community",
-        "repo": "yarn2nix",
-        "rev": "f38737c68d64af0f87a1324a57b0858766531e65",
-        "sha256": "1a4s5fy0i56z29j4ln22v8ga2ygillgc8h843jfpkd2380amjw74",
-        "type": "tarball",
-        "url": "https://github.com/nix-community/yarn2nix/archive/f38737c68d64af0f87a1324a57b0858766531e65.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

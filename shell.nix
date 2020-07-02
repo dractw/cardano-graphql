@@ -21,15 +21,15 @@ let
       nodePackages.node2nix  # Generates a set of Nix expressions from a NPM package's package.json
       nodePackages.typescript   # Provides the TypeScripts compiler, tsc
       packages.nodejs        # Event-driven I/O framework for the V8 JavaScript engine
+      packages.vgo2nix       # Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files
       pkgconfig              # Allows packages to find out information about other packages
       # pkgs.packages.cardano-graphql.cardano-graphql-server
       pkgs.packages.persistgraphql
       pkgs.packages.hasura-cli
+      pkgs.yarn2nix-moretea.yarn2nix   # Generate nix expressions from a yarn.lock file
       python                 # The Python Programming language
       tmux                   # Terminal multiplexer
       yarn                   # Dependency management for javascript
-      packages.vgo2nix       # Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files
-      #packages.yarn2nix      # Generate nix expressions from a yarn.lock file
     ];
 
     shellHook = ''
@@ -58,8 +58,8 @@ let
       nodePackages.node2nix  # Generates a set of Nix expressions from a NPM package's package.json
       nodePackages.typescript   # Provides the TypeScripts compiler, tsc
       packages.vgo2nix       # Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files
-      #packages.yarn2nix      # Generate nix expressions from a yarn.lock file
       yarn                   # Dependency management for javascript
+      pkgs.yarn2nix-moretea.yarn2nix   # Generate nix expressions from a yarn.lock file
     ];
     shellHook = ''
       echo "DevOps Tools" \
