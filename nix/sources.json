@@ -62,6 +62,7 @@
     },
     "yarn2nix": {
         "branch": "master",
+        "builtin": false,
         "description": "Generate nix expressions from a yarn.lock file",
         "homepage": null,
         "owner": "nix-community",
