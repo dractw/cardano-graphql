@@ -7,6 +7,7 @@ export type Config = {
   apiPort: number
   cacheEnabled: boolean
   hasuraUri: string
+  cardanoNodeSocketPath: string
   prometheusMetrics: boolean
   queryDepthLimit: number
   tracing: boolean
@@ -20,14 +21,17 @@ export async function getConfig (): Promise<Config> {
     apiPort,
     cacheEnabled,
     hasuraUri,
+    cardanoNodeSocketPath,
     prometheusMetrics,
     queryDepthLimit,
     tracing,
     whitelistPath
   } = filterAndTypecastEnvs(process.env)
-
   if (!hasuraUri) {
     throw new MissingConfig('HASURA_URI env not set')
+  }
+  if (!cardanoNodeSocketPath) {
+    throw new MissingConfig('CARDANO_NODE_SOCKET_PATH env not set')
   }
   if (prometheusMetrics && process.env.TRACING === 'false') {
     throw new TracingRequired('Prometheus')
@@ -39,6 +43,7 @@ export async function getConfig (): Promise<Config> {
     allowIntrospection,
     allowedOrigins: allowedOrigins || true,
     apiPort: apiPort || 3100,
+    cardanoNodeSocketPath,
     cacheEnabled: cacheEnabled || false,
     hasuraUri,
     prometheusMetrics,
@@ -55,6 +60,7 @@ function filterAndTypecastEnvs (env: any) {
     API_PORT,
     CACHE_ENABLED,
     HASURA_URI,
+    CARDANO_NODE_SOCKET_PATH,
     PROMETHEUS_METRICS,
     QUERY_DEPTH_LIMIT,
     TRACING,
@@ -66,6 +72,7 @@ function filterAndTypecastEnvs (env: any) {
     apiPort: Number(API_PORT),
     cacheEnabled: CACHE_ENABLED === 'true' ? true : undefined,
     hasuraUri: HASURA_URI,
+    cardanoNodeSocketPath: CARDANO_NODE_SOCKET_PATH,
     prometheusMetrics: PROMETHEUS_METRICS === 'true' ? true : undefined,
     queryDepthLimit: Number(QUERY_DEPTH_LIMIT),
     tracing: TRACING === 'true' ? true : undefined,
